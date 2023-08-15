@@ -1,7 +1,7 @@
 import {
   renderStatus,
   setupPageBasics,
-  renderUsers,
+  renderUserButtons,
   renderPosts,
   renderNewUser,
 } from './render-functions.js';

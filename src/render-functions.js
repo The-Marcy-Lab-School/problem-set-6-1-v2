@@ -34,7 +34,7 @@ export const setupPageBasics = (parentEl) => {
 export const renderStatus = () => {
 }
 
-export const renderUsers = () => {
+export const renderUserButtons = () => {
 };
 
 export const renderPosts = () => {

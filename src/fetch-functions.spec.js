@@ -99,7 +99,7 @@ describe(testSuiteName, () => {
       });
   });
 
-  it('getUserPosts - only returns the first 3 posts', () => {
+  it('getUserPosts - only returns the first 3 posts by default', () => {
     const userId = 1;
     const posts = [
       { id: 1, title: 'Title 1', body: 'Body 1' },
@@ -111,6 +111,30 @@ describe(testSuiteName, () => {
 
     const scope = nock(baseUrl).get(`/users/${userId}/posts`).reply(200, posts);
     getUserPosts(userId)
+      .then(response => {
+        expect(response).toEqual(posts.slice(0, 3));
+        expect(scope.isDone()).toBe(true);
+      })
+      .catch((e) => {
+        // did you return a promise AND hit the right route?
+        expect(e).toBeUndefined();
+      });
+
+    scoreCounter.correct(expect); // DO NOT TOUCH
+  });
+
+  it('getUserPosts - if a numPosts arg is given, that number of posts is fetched', () => {
+    const userId = 1;
+    const posts = [
+      { id: 1, title: 'Title 1', body: 'Body 1' },
+      { id: 2, title: 'Title 2', body: 'Body 2' },
+      { id: 3, title: 'Title 3', body: 'Body 3' },
+      { id: 4, title: 'Title 4', body: 'Body 4' },
+      { id: 5, title: 'Title 5 STILL NO', body: 'Body BAD 5' },
+    ];
+
+    const scope = nock(baseUrl).get(`/users/${userId}/posts`).reply(200, posts);
+    getUserPosts(userId, 4)
       .then(response => {
         expect(response).toEqual(posts.slice(0, 3));
         expect(scope.isDone()).toBe(true);

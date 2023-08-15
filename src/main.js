@@ -4,7 +4,7 @@ import {
   getUserPosts,
   createNewUser,
   getUsers
-} from './fetch-functions.js';
+} from './fetch-functions.js'; // only here for testing
 import app from './app'
 
 const appDiv = document.querySelector('#app');

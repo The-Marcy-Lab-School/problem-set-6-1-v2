@@ -1,7 +1,7 @@
 import { describe, it, expect, afterEach, afterAll, beforeEach, vi } from 'vitest';
 import {
   renderStatus,
-  renderUsers,
+  renderUserButtons,
   renderPosts,
   renderNewUser,
 } from './render-functions.js';
@@ -11,9 +11,6 @@ import path from 'path';
 const testSuiteName = 'Render Functions Tests';
 const scoresDir = path.join(__dirname, '..', 'scores');
 const scoreCounter = new ScoreCounter(testSuiteName, scoresDir);
-
-const baseUrl = 'https://jsonplaceholder.typicode.com';
-const usersUrl = `${baseUrl}/users`;
 
 describe(testSuiteName, () => {
   it('renderStatus - updates and returns the the status div with h2 and p tag information', () => {
@@ -47,7 +44,7 @@ describe(testSuiteName, () => {
     scoreCounter.correct(expect); // DO NOT TOUCH
   });
 
-  it('renderUsers - updates and returns the usersUl with li tags for each user', () => {
+  it('renderUserButtons - updates and returns the usersUl with li tags for each user', () => {
     const usersUl = document.createElement('ul');
     const users = [
       {  id: 1, username: 'bro-dude',  email: 'bret@gmail.com' },
@@ -55,7 +52,7 @@ describe(testSuiteName, () => {
       {  id: 3, username: 'slam_sam',  email: 'sam@gmail.com' },
     ];
 
-    renderUsers(usersUl, users);
+    renderUserButtons(usersUl, users);
     expect(usersUl.children.length).toBe(users.length);
 
     const liTags = usersUl.querySelectorAll('li');
@@ -72,7 +69,7 @@ describe(testSuiteName, () => {
     scoreCounter.correct(expect); // DO NOT TOUCH
   });
 
-  it("renderUsers - clears the html each time so multiple calls don't duplicate users", () => {
+  it("renderUserButtons - clears the html each time so multiple calls don't duplicate users", () => {
     const usersUl = document.createElement('ul');
     const users = [
       {  id: 1, username: 'Bret',  email: 'bret@gmail.com' },
@@ -80,10 +77,10 @@ describe(testSuiteName, () => {
       {  id: 3, username: 'Samantha',  email: 'sam@gmail.com' },
     ];
 
-    renderUsers(usersUl, users);
-    renderUsers(usersUl, users);
-    renderUsers(usersUl, users);
-    renderUsers(usersUl, users);
+    renderUserButtons(usersUl, users);
+    renderUserButtons(usersUl, users);
+    renderUserButtons(usersUl, users);
+    renderUserButtons(usersUl, users);
     expect(usersUl.children.length).toBe(users.length);
 
     scoreCounter.correct(expect); // DO NOT TOUCH
